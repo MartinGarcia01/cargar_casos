@@ -39,7 +39,7 @@ public class DocumentoCSV {
         int cont=0;
         try {
             entrada = new BufferedReader(new FileReader(csvData));
-            CSVParser parser = CSVParser.parse(csvData, java.nio.charset.Charset.forName("utf-8"), CSVFormat.RFC4180.withDelimiter(';').withHeader());
+            CSVParser parser = CSVParser.parse(csvData, java.nio.charset.Charset.forName("utf-8"), CSVFormat.RFC4180.withDelimiter(';'));
             for (CSVRecord csvRecord : parser) {
                 //System.out.println(csvRecord.get(0));
                 cont++;
