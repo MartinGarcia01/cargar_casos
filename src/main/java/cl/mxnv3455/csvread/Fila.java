@@ -18,6 +18,14 @@ public class Fila {
         this.nombres = nombres;
     }
     
+    public String getNombrePorIndice(int indice){
+        return this.nombres[indice];
+    }
+    
+    public String getCampoPorIndice(int indice){
+        return this.campos[indice];
+    }
+    
     public String getCampo(String campo){
         int indice = Arrays.asList(this.nombres).indexOf(campo);
         if (indice==-1) {
