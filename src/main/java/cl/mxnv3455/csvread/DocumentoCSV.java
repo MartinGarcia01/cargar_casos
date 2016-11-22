@@ -64,9 +64,12 @@ public class DocumentoCSV {
         System.err.println("documento cargado: "+this.ruta);
     }
     public Fila getFilaSiguiente(){
-        return  (Fila)this.it.next();
-        
+        if(this.it.hasNext()) {
+         return  (Fila)this.it.next();
+        }
+        return null;
     }
+    
     public static class MyIterator<T> {
 
         private final ListIterator<T> listIterator;
@@ -94,6 +97,10 @@ public class DocumentoCSV {
             }
             previousWasCalled = true;
             return listIterator.previous();
+        }
+        
+        public boolean hasNext() {
+            return listIterator.hasNext();
         }
 
     }   

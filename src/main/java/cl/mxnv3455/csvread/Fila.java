@@ -20,14 +20,23 @@ public class Fila {
     public Fila(String clase, String[] campos, String[] nombres) {
         this.campos = campos;
         this.nombres = nombres;
+        this.clase=clase;
     }
 
     private String makeRelCypher(String claseRel, String claveRel, String nombreRel) {
-        String respuesta = "MATCH n:"+claseRel+" {"+claveRel+":"+this.getCampo(claveRel)+"}\n";
-        respuesta += "CREATE(n)-[:"+nombreRel+"]-(node)";
+        String respuesta= "WITH node \n";
+        respuesta += "MATCH (n:"+claseRel+") WHERE n."+claveRel+"= \""+this.getCampo(claveRel)+"\" \n";
+        respuesta += "CREATE(n)-[:"+nombreRel+"]->(node)\n ";
+        //MATCH (n:Caso) WHERE n.idcaso='3453534'
         return respuesta;
     }
-
+    private String makeRelCypher(String claseRel, String claveRel, String nombreRel,String datoRel) {
+        String respuesta= "WITH node \n";
+        respuesta += "MATCH (n:"+claseRel+") WHERE n."+claveRel+"= \""+this.getCampo(claveRel)+"\" \n";
+        respuesta += "CREATE(n)-[:"+nombreRel+"{fecha:[\""+this.getCampo(datoRel)+"\"]}]->(node)\n ";
+        //MATCH (n:Caso) WHERE n.idcaso='3453534'
+        return respuesta;
+    }
     private String makeCreateCypher() {
         String respuesta = "CREATE(node:" + this.clase + "{";
         for (int i = 0; i < campos.length; i++) {
@@ -46,6 +55,12 @@ public class Fila {
     public String toCypherCreateStatement(String claseRel, String claveRel,String nombreRel) {
         String respuesta = makeCreateCypher();
         respuesta+="\n"+makeRelCypher(claseRel, claveRel, nombreRel);
+        return respuesta;
+
+    }
+    public String toCypherCreateStatement(String claseRel, String claveRel,String nombreRel,String datoRel) {
+        String respuesta = makeCreateCypher();
+        respuesta+="\n"+makeRelCypher(claseRel, claveRel, nombreRel,datoRel);
         return respuesta;
 
     }
