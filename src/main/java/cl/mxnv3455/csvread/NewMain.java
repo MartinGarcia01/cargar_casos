@@ -5,9 +5,6 @@
  */
 package cl.mxnv3455.csvread;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  *
  * @author martin
@@ -50,11 +47,9 @@ public class NewMain {
         MotivosPorCasos = new DocumentoCSV(encabezadosMotivosPorCasos, rutaMotivosPorCasos);;
         EstadosPorCasos = new DocumentoCSV(encabezadosEstadosPorCasos, rutaEstadosPorCasos);;
         
-        
-        List<Fila> filas= casos.getfilasSinRepetir("codigoOR");
-        for (int i = 0; i < filas.size(); i++) {
-            System.err.println(filas.get(i));
-            
+        for (int i = 0; i < 10; i++) {
+            Fila f = casos.getFilaSiguiente();
+            System.out.println(f);
         }
     }
 

@@ -29,14 +29,14 @@ public class DocumentoCSV {
         this.ruta = ruta;
         this.filas = new LinkedList<>();
         this.cargarDocumento();
-        this.it = new MyIterator<Fila>(this.filas.listIterator());
+        this.it= new MyIterator<Fila>(this.filas.listIterator());
 
     }
 
     private void cargarDocumento() {
         File csvData = new File(this.ruta);
         BufferedReader entrada;
-        int cont = 0;
+        int cont=0;
         try {
             entrada = new BufferedReader(new FileReader(csvData));
             CSVParser parser = CSVParser.parse(csvData, java.nio.charset.Charset.forName("utf-8"), CSVFormat.RFC4180.withDelimiter(';'));
@@ -47,11 +47,11 @@ public class DocumentoCSV {
                 for (int i = 0; i < columnas.length; i++) {
                     try {
                         campos[i] = csvRecord.get(i);
-
+                        
                     } catch (Exception e) {
-                        System.err.println("fallo " + i);
+                        System.err.println("fallo "+i);
                     }
-
+                    
                 }
                 Fila f = new Fila(campos, this.columnas);
                 this.filas.add(f);
@@ -61,53 +61,12 @@ public class DocumentoCSV {
             System.err.println(cont);
             //e.printStackTrace();
         }
-        System.err.println("documento cargado: " + this.ruta);
+        System.err.println("documento cargado: "+this.ruta);
     }
-
-    public Fila getFilaSiguiente() {
-        return (Fila) this.it.next();
-
-    }
-
-    public List<Fila> getfilasSinRepetir(String nombreCampo) {
-        List<Fila> respuesta = new LinkedList<>();
-        boolean existeRepetido = false;
-        
-        for (int i = 0; i < filas.size(); i++) {
-            for (int j = 0; j < filas.size(); j++) {
-                if (i == j) {
-
-                } else {
-                    if (this.filas.get(i).getCampo(nombreCampo).equals(this.filas.get(j).getCampo(nombreCampo))) {
-                        existeRepetido = true;
-                    } else {
-                    }
-                }
-
-            }
-            boolean existeEnRespuesta=false;
-            if (existeRepetido) {
-                for (int j = 0; j < respuesta.size(); j++) {
-                    if (this.filas.get(i).getCampo(nombreCampo).equals(respuesta.get(j).getCampo(nombreCampo))) {
-                        existeRepetido = true;
-                    } else {
-                    }
-                }
-                if (existeEnRespuesta) {
-                    
-                } else {
-                    respuesta.add(filas.get(i));
-                }
-            } else {
-                respuesta.add(filas.get(i));
-            }
-            existeEnRespuesta = false;
-            existeRepetido = false;
-        }
-        return respuesta;
+    public Fila getFilaSiguiente(){
+        return  (Fila)this.it.next();
         
     }
-
     public static class MyIterator<T> {
 
         private final ListIterator<T> listIterator;
@@ -123,9 +82,9 @@ public class DocumentoCSV {
             nextWasCalled = true;
             if (previousWasCalled) {
                 previousWasCalled = false;
-                listIterator.next();
+                listIterator.next ();
             }
-            return listIterator.next();
+            return listIterator.next ();
         }
 
         public T previous() {
@@ -137,5 +96,5 @@ public class DocumentoCSV {
             return listIterator.previous();
         }
 
-    }
+    }   
 }
