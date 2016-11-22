@@ -16,6 +16,7 @@ public class NewMain {
      */
     public static void main(String[] args) {
         // Archivo de casos
+        Neo4j consola = new Neo4j("neo4j", "gabita");
         String rutaCasos = "/home/martin/Escritorio/datos_limpios_casos-master/casos_limpios.csv";
         String[] encabezadosCasos = {"idcaso", "ano", "rol", "codigoOR", "NombreOR", "folioSAI", "fechaRecepcionCPLT", "iDLugarIngreso", "lugarIngreso", "iDTipoCaso", "tipoCaso", "fechaSolInstitucion", "fEchaRespuestaInst", "idEstadoWeb", "estado"};
         DocumentoCSV casos;
@@ -41,16 +42,15 @@ public class NewMain {
         DocumentoCSV MotivosPorCasos;
         
         // Cargar archivos
-        casos = new DocumentoCSV(encabezadosCasos, rutaCasos);
-        reclamantes = new DocumentoCSV(encabezadosReclamante, rutaReclamante);
-        reclamado = new DocumentoCSV(encabezadosReclamado, rutaReclamado);
-        MotivosPorCasos = new DocumentoCSV(encabezadosMotivosPorCasos, rutaMotivosPorCasos);;
-        EstadosPorCasos = new DocumentoCSV(encabezadosEstadosPorCasos, rutaEstadosPorCasos);;
+        casos = new DocumentoCSV(encabezadosCasos, rutaCasos,"caso");
+        reclamantes = new DocumentoCSV(encabezadosReclamante, rutaReclamante,"reclamante");
+        reclamado = new DocumentoCSV(encabezadosReclamado, rutaReclamado,"reclamado");
+        MotivosPorCasos = new DocumentoCSV(encabezadosMotivosPorCasos, rutaMotivosPorCasos,"motivo");;
+        EstadosPorCasos = new DocumentoCSV(encabezadosEstadosPorCasos, rutaEstadosPorCasos,"estado");
+        consola.ejecutarConsulta(casos.getFilaSiguiente().toCypherCreateStatement());
         
-        for (int i = 0; i < 10; i++) {
-            Fila f = casos.getFilaSiguiente();
-            System.out.println(f);
-        }
+        consola.close();
+        
     }
 
 }

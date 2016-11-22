@@ -24,16 +24,16 @@ public class DocumentoCSV {
     private List<Fila> filas;
     private MyIterator it;
 
-    public DocumentoCSV(String[] columnas, String ruta) {
+    public DocumentoCSV(String[] columnas, String ruta,String clase) {
         this.columnas = columnas;
         this.ruta = ruta;
         this.filas = new LinkedList<>();
-        this.cargarDocumento();
+        this.cargarDocumento(clase);
         this.it= new MyIterator<Fila>(this.filas.listIterator());
 
     }
 
-    private void cargarDocumento() {
+    private void cargarDocumento(String clase) {
         File csvData = new File(this.ruta);
         BufferedReader entrada;
         int cont=0;
@@ -53,7 +53,7 @@ public class DocumentoCSV {
                     }
                     
                 }
-                Fila f = new Fila(campos, this.columnas);
+                Fila f = new Fila(clase, campos, this.columnas);
                 this.filas.add(f);
             }
             entrada.close();
