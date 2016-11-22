@@ -31,7 +31,7 @@ public class Fila {
     private String makeCreateCypher() {
         String respuesta = "CREATE(node:" + this.clase + "{";
         for (int i = 0; i < campos.length; i++) {
-            respuesta += this.nombres[i] + ":'" + this.campos[i] + "',";
+            respuesta += this.nombres[i] + ":\"" + this.campos[i] + "\",";
         }
         respuesta = respuesta.substring(0, respuesta.length() - 1);
         respuesta += "})";

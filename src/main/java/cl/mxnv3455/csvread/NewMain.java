@@ -47,7 +47,10 @@ public class NewMain {
         reclamado = new DocumentoCSV(encabezadosReclamado, rutaReclamado,"reclamado");
         MotivosPorCasos = new DocumentoCSV(encabezadosMotivosPorCasos, rutaMotivosPorCasos,"motivo");;
         EstadosPorCasos = new DocumentoCSV(encabezadosEstadosPorCasos, rutaEstadosPorCasos,"estado");
-        consola.ejecutarConsulta(casos.getFilaSiguiente().toCypherCreateStatement());
+        for (int i = 0; i < 500; i++) {
+            consola.ejecutarConsulta(casos.getFilaSiguiente().toCypherCreateStatement());
+        }
+        
         
         consola.close();
         
